@@ -1,0 +1,76 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VETC_API", "VETC_API\VETC_API.vcxproj", "{88177AFE-B6EB-41D9-A1E2-1BB0E011EB2E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCS", "TestCS\TestCS.csproj", "{7DB84CFB-87A1-44C7-AC92-ACB04776681B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		DLL-Import Debug|Any CPU = DLL-Import Debug|Any CPU
+		DLL-Import Debug|x64 = DLL-Import Debug|x64
+		DLL-Import Debug|x86 = DLL-Import Debug|x86
+		DLL-Import Release|Any CPU = DLL-Import Release|Any CPU
+		DLL-Import Release|x64 = DLL-Import Release|x64
+		DLL-Import Release|x86 = DLL-Import Release|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{88177AFE-B6EB-41D9-A1E2-1BB0E011EB2E}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{88177AFE-B6EB-41D9-A1E2-1BB0E011EB2E}.Debug|x64.ActiveCfg = Debug|x64
+		{88177AFE-B6EB-41D9-A1E2-1BB0E011EB2E}.Debug|x64.Build.0 = Debug|x64
+		{88177AFE-B6EB-41D9-A1E2-1BB0E011EB2E}.Debug|x86.ActiveCfg = Debug|Win32
+		{88177AFE-B6EB-41D9-A1E2-1BB0E011EB2E}.Debug|x86.Build.0 = Debug|Win32
+		{88177AFE-B6EB-41D9-A1E2-1BB0E011EB2E}.DLL-Import Debug|Any CPU.ActiveCfg = Release|x64
+		{88177AFE-B6EB-41D9-A1E2-1BB0E011EB2E}.DLL-Import Debug|Any CPU.Build.0 = Release|x64
+		{88177AFE-B6EB-41D9-A1E2-1BB0E011EB2E}.DLL-Import Debug|x64.ActiveCfg = Debug|x64
+		{88177AFE-B6EB-41D9-A1E2-1BB0E011EB2E}.DLL-Import Debug|x64.Build.0 = Debug|x64
+		{88177AFE-B6EB-41D9-A1E2-1BB0E011EB2E}.DLL-Import Debug|x86.ActiveCfg = Debug|Win32
+		{88177AFE-B6EB-41D9-A1E2-1BB0E011EB2E}.DLL-Import Debug|x86.Build.0 = Debug|Win32
+		{88177AFE-B6EB-41D9-A1E2-1BB0E011EB2E}.DLL-Import Release|Any CPU.ActiveCfg = Release|x64
+		{88177AFE-B6EB-41D9-A1E2-1BB0E011EB2E}.DLL-Import Release|Any CPU.Build.0 = Release|x64
+		{88177AFE-B6EB-41D9-A1E2-1BB0E011EB2E}.DLL-Import Release|x64.ActiveCfg = Release|x64
+		{88177AFE-B6EB-41D9-A1E2-1BB0E011EB2E}.DLL-Import Release|x64.Build.0 = Release|x64
+		{88177AFE-B6EB-41D9-A1E2-1BB0E011EB2E}.DLL-Import Release|x86.ActiveCfg = Release|Win32
+		{88177AFE-B6EB-41D9-A1E2-1BB0E011EB2E}.DLL-Import Release|x86.Build.0 = Release|Win32
+		{88177AFE-B6EB-41D9-A1E2-1BB0E011EB2E}.Release|Any CPU.ActiveCfg = Release|Win32
+		{88177AFE-B6EB-41D9-A1E2-1BB0E011EB2E}.Release|x64.ActiveCfg = Release|x64
+		{88177AFE-B6EB-41D9-A1E2-1BB0E011EB2E}.Release|x64.Build.0 = Release|x64
+		{88177AFE-B6EB-41D9-A1E2-1BB0E011EB2E}.Release|x86.ActiveCfg = Release|Win32
+		{88177AFE-B6EB-41D9-A1E2-1BB0E011EB2E}.Release|x86.Build.0 = Release|Win32
+		{7DB84CFB-87A1-44C7-AC92-ACB04776681B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DB84CFB-87A1-44C7-AC92-ACB04776681B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DB84CFB-87A1-44C7-AC92-ACB04776681B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7DB84CFB-87A1-44C7-AC92-ACB04776681B}.Debug|x64.Build.0 = Debug|Any CPU
+		{7DB84CFB-87A1-44C7-AC92-ACB04776681B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7DB84CFB-87A1-44C7-AC92-ACB04776681B}.Debug|x86.Build.0 = Debug|Any CPU
+		{7DB84CFB-87A1-44C7-AC92-ACB04776681B}.DLL-Import Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DB84CFB-87A1-44C7-AC92-ACB04776681B}.DLL-Import Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DB84CFB-87A1-44C7-AC92-ACB04776681B}.DLL-Import Debug|x64.ActiveCfg = Debug|Any CPU
+		{7DB84CFB-87A1-44C7-AC92-ACB04776681B}.DLL-Import Debug|x64.Build.0 = Debug|Any CPU
+		{7DB84CFB-87A1-44C7-AC92-ACB04776681B}.DLL-Import Debug|x86.ActiveCfg = Debug|Any CPU
+		{7DB84CFB-87A1-44C7-AC92-ACB04776681B}.DLL-Import Debug|x86.Build.0 = Debug|Any CPU
+		{7DB84CFB-87A1-44C7-AC92-ACB04776681B}.DLL-Import Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DB84CFB-87A1-44C7-AC92-ACB04776681B}.DLL-Import Release|Any CPU.Build.0 = Release|Any CPU
+		{7DB84CFB-87A1-44C7-AC92-ACB04776681B}.DLL-Import Release|x64.ActiveCfg = Release|Any CPU
+		{7DB84CFB-87A1-44C7-AC92-ACB04776681B}.DLL-Import Release|x64.Build.0 = Release|Any CPU
+		{7DB84CFB-87A1-44C7-AC92-ACB04776681B}.DLL-Import Release|x86.ActiveCfg = Release|Any CPU
+		{7DB84CFB-87A1-44C7-AC92-ACB04776681B}.DLL-Import Release|x86.Build.0 = Release|Any CPU
+		{7DB84CFB-87A1-44C7-AC92-ACB04776681B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DB84CFB-87A1-44C7-AC92-ACB04776681B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DB84CFB-87A1-44C7-AC92-ACB04776681B}.Release|x64.ActiveCfg = Release|Any CPU
+		{7DB84CFB-87A1-44C7-AC92-ACB04776681B}.Release|x64.Build.0 = Release|Any CPU
+		{7DB84CFB-87A1-44C7-AC92-ACB04776681B}.Release|x86.ActiveCfg = Release|Any CPU
+		{7DB84CFB-87A1-44C7-AC92-ACB04776681B}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
