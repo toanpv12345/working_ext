@@ -1,0 +1,6 @@
+﻿  TCOC_API.cpp
+  VETCService.cpp
+  Generating Code...
+  AssemblyInfo.obj : /DEBUG:FASTLINK is not supported when managed code is present; restarting link with /DEBUG:FULL
+  VETC_API.vcxproj -> D:\vetcsvn\front-end\VETC_API\Debug\VETC_API.dll
+  VETC_API.vcxproj -> D:\vetcsvn\front-end\VETC_API\Debug\VETC_API.pdb (Partial PDB)
