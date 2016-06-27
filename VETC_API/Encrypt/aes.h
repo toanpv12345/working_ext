@@ -1,7 +1,7 @@
 #pragma once
 
 #ifndef uint8
-#define uint8  unsigned char
+#define uint8 unsigned char
 #endif
 
 #ifndef uint32

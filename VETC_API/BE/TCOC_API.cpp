@@ -1,11 +1,20 @@
 #include "TCOC_API.h"
 #include <process.h>
+//#include <future>
 
-TCOC_API::TCOC_API(const char* serverIP, int serverPort, const char* account, const char* pwd, int station, unsigned char* encriptKey, TCOCCallback callBack)
+TCOC_API::TCOC_API(const char* serverIP, int serverPort, TCOCCallback callBack)
 {
-	m_account = account;
-	m_pwd = pwd;
-	m_staion = station;
+	const char * account = "vetc";
+	const char * pwd = "vetc@123";
+	uint8 encriptKey[16] = { 'F','C','9','D','C','4','1','5','6','6','8','C','F','4','4','B' };
+
+	m_staion = 460;
+	memset(m_account, 0, sizeof(m_account));
+	memset(m_pwd, 0, sizeof(m_pwd));
+
+	memcpy(m_account, account, strlen(account));
+	memcpy(m_pwd, pwd, strlen(pwd));
+
 	_callBack = callBack;
 	m_enableReceive = false;
 	m_requestID = 0;
@@ -14,17 +23,18 @@ TCOC_API::TCOC_API(const char* serverIP, int serverPort, const char* account, co
 	m_aes = new AES();
 	m_aes->setKey(&m_aesContext, encriptKey, 128);
 
-	printf("m_encriptKey: %s\n", encriptKey);
-	printf("m_account: %s\n", m_account.c_str());
-	printf("m_pwd: %s\n", m_pwd.c_str());
-	printf("m_staion: %d\n", m_staion);
+	char port[10];
+	sprintf_s(port, sizeof(port), "%d", serverPort);
 
-	m_network = new Network(serverIP, std::to_string(serverPort).c_str());
+	/*m_network = new Network(serverIP, port);
 	if (m_network->connectBE())
 	{
 		m_enableReceive = true;
 		_beginthread(&TCOC_API::startReceiveWrapper, 0, this);
-	}
+		this->Connect();
+	}*/
+
+	this->testAES();
 }
 
 TCOC_API::~TCOC_API(void)
@@ -34,10 +44,42 @@ TCOC_API::~TCOC_API(void)
 
 void TCOC_API::Connect()
 {
+	ConnectCmd connectCmd;
+	connectCmd.make(m_account, m_pwd, m_staion, 200, m_requestID, 0);
 
+	char data[sizeof(ConnectCmd)];
+	memcpy(data, &connectCmd, sizeof(ConnectCmd));
+
+	for (int i = 0; i < sizeof(ConnectCmd); i++)
+		printf("%2x", data[i]);
+
+	printf("  ConnectCmd\n");
+
+	uint8 buff[100];
+	memcpy_s(buff, sizeof(ConnectCmd), data, sizeof(ConnectCmd));
+	m_aes->encrypt(&m_aesContext, buff, buff);
+
+	for (int i = 0; i < sizeof(ConnectCmd); i++)
+		printf("%2x", buff[i]);
+
+	printf("  ConnectCmd Encrypt\n");
+	/*char* dataEncrypt = this->encrypt(data, sizeof(ConnectCmd));
+	int len = strlen(dataEncrypt);
+
+	printf("\ndataEncrypt:");
+	for (int i = 0; i < len; i++)
+		printf("%2x", dataEncrypt[i]);
+
+	printf("\ndataDecrypt:");
+	char* dataDecrypt = this->decrypt(data, strlen(data));
+	len = strlen(dataDecrypt);
+	for (int i = 0; i < len; i++)
+		printf("%2x", dataDecrypt[i]);*/
+
+	m_network->sendPackets((char*)buff, sizeof(ConnectCmd));
 }
 
-void TCOC_API::receivePacketWithEncript()
+void TCOC_API::receivePacketWithEncrypt()
 {
 	//Packet packet;
 	char packet[MAX_PACKET_SIZE] = { 0 };
@@ -46,26 +88,46 @@ void TCOC_API::receivePacketWithEncript()
 	if (data_length <= 0)
 		return;
 
-	char* packetDecript = decript(packet, data_length);
+	for (int i = 0; i < data_length; i++)
+		printf("%2x ", packet[i]);
+
+	printf("  packet\n");
+
+	/*char* packetDecrypt = decrypt(packet + 4, data_length);
+	printf("packetDecrypt:");
+	int pl = strlen(packetDecrypt);
+	for(int i = 0; i < pl; i++)
+		printf("%2x", packetDecrypt[i]);
+
+	printf("\n");*/
+
+	uint8 buff[100];
+	memcpy_s(buff, data_length - 4, packet + 4, data_length - 4);
+	m_aes->decrypt(&m_aesContext, buff, buff);
+
+	for (int i = 0; i < data_length - 4; i++)
+		printf("%2x ", buff[i]);
+
+	printf("  packetDecrypt\n");
 
 	if (_callBack != nullptr)
-		_callBack(packetDecript, data_length);
+		_callBack((char*)buff, data_length);
 }
 
-void TCOC_API::sendPacketWithEncript(char * packet, int packetSize)
+void TCOC_API::sendPacketWithEncrypt(char * packet, int packetSize)
 {
 	if (packet == nullptr || packetSize <= 0)
 		return;
 
-	char* packetEncript = encript(packet, packetSize);
-	m_network->sendPackets(packetEncript, strlen(packetEncript));
+	char* packetEncrypt = encrypt(packet, packetSize);
+	m_network->sendPackets(packetEncrypt, strlen(packetEncrypt));
 }
 
 void TCOC_API::startReceive()
 {
 	while (m_enableReceive)
 	{
-		receivePacketWithEncript();
+		receivePacketWithEncrypt();
 	}
 }
 
@@ -74,17 +136,25 @@ void TCOC_API::startReceiveWrapper(void *p)
 	static_cast<TCOC_API*>(p)->startReceive();
 }
 
-char * TCOC_API::encript(char * packet, int packetSize)
+char * TCOC_API::encrypt(char * packet, int packetSize)
 {
-	unsigned char *buff = new unsigned char[packetSize];
+	//unsigned char *buff = new unsigned char[packetSize];
+	uint8 buff[100];
 	memcpy_s(buff, packetSize, packet, packetSize);
 	m_aes->encrypt(&m_aesContext, buff, buff);
-	return (char*)buff;
+
+	int len = strlen((const char*)buff);
+	char *dataEncrypt = new char[len + sizeof(int)];
+	memcpy(dataEncrypt, &len, sizeof(int));
+	memcpy(dataEncrypt + 4, buff, len);
+
+	return dataEncrypt;
 }
 
-char * TCOC_API::decript(char * packetEncript, int packetSize)
+char * TCOC_API::decrypt(char * packetEncript, int packetSize)
 {
-	unsigned char *buff = new unsigned char[packetSize];
+	//unsigned char *buff = new unsigned char[packetSize];
+	uint8 buff[100];
 	memcpy_s(buff, packetSize, packetEncript, packetSize);
 	m_aes->decrypt(&m_aesContext, buff, buff);
 	return (char*)buff;
@@ -95,16 +165,14 @@ void TCOC_API::testAES()
 	int n, i;
 	aes_context ctx;
 	AES *aes = new AES();
-	unsigned char buf[16];
-	unsigned char key[32];
-	static unsigned char AES_test[16] = {0xF5, 0xBF, 0x8B, 0x37, 0x13, 0x6F, 0x2E, 0x1F,0x6B, 0xEC, 0x6F, 0x57, 0x20, 0x21, 0xE3, 0xBA};
+	uint8 buf[44];
+	uint8 key[16];
+	//2c 0 0 0 0 0 0 0 1000000076657463000000766574634031323300cc100e8300
+	static uint8 AES_test[44] = { 0x2c,0,0,0,0,0,0,0,0x01,0,0,0,0,0,0,0,0x76,0x65,0x74,0x63,0,0,0,0,0,0,0x76,0x65,0x74,0x63,0x40,0x31,0x32,0x33,0,0,0xcc,0x01,0,0,0xe8,0x03,0,0 };
 
-	static unsigned char secret_key[32] =
+	static uint8 secret_key[16] =
 	{
-		0x4E, 0x46, 0xF8, 0xC5, 0x09, 0x2B, 0x29, 0xE2,
-		0x9A, 0x97, 0x1A, 0x0C, 0xD1, 0xF6, 0x10, 0xFB,
-		0x1F, 0x67, 0x63, 0xDF, 0x80, 0x7A, 0x7E, 0x70,
-		0x96, 0x0D, 0x4C, 0xD3, 0x11, 0x8E, 0x60, 0x1A
+		'F','C','9','D','C','4','1','5','6','6','8','C','F','4','4','B'
 	};
 	/* Keys can be 128 bits, 192 bits, and 256 bits  */
 	for (n = 0; n < 3; n++)
@@ -115,27 +183,27 @@ void TCOC_API::testAES()
 		fflush(stdout);
 
 		/* Set the plain-text */
-		memcpy(buf, AES_test, 16);
+		memcpy(buf, AES_test, sizeof(AES_test));
 
 		/* Set the key */
-		memcpy(key, secret_key, 16 + n * 8);
+		memcpy(key, secret_key, sizeof(secret_key) + n * 8);
 		aes->setKey(&ctx, key, 128 + n * 64);
 
 		/* Print out the plain text */
-		for (i = 0; i < 16; i++) {
+		for (i = 0; i < sizeof(buf); i++) {
 			printf("%2x ", buf[i]);
 		}
 		printf(" (Plain Text)\n");
 
 		aes->encrypt(&ctx, buf, buf);
-		for (i = 0; i < 16; i++) {
+		for (i = 0; i < sizeof(buf); i++) {
 			printf("%2x ", buf[i]);
 		}
 		printf(" (Cipher Text)\n");
 
 
 		aes->decrypt(&ctx, buf, buf);
-		for (i = 0; i < 16; i++) {
+		for (i = 0; i < sizeof(buf); i++) {
 			printf("%2x ", buf[i]);
 		}
 		printf(" (Decrypted Plain Text)\n");
