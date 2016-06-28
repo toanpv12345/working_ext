@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CE272DC9-0AFA-4ECD-8C66-322F4AF7F384}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TCOC.API</RootNamespace>
+    <AssemblyName>TCOC.API</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WinSCPnet, Version=1.2.10.5874, Culture=neutral, PublicKeyToken=2271ec4a3c56d0bf, processorArchitecture=MSIL">
+      <HintPath>..\packages\WinSCP.5.7.6\lib\WinSCPnet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="APIClient.cs" />
+    <Compile Include="Encrypt\AesEncrypter.cs" />
+    <Compile Include="Encrypt\IEncrypter.cs" />
+    <Compile Include="Extensions\Helper.cs" />
+    <Compile Include="Extensions\StreamExtensions.cs" />
+    <Compile Include="Objects\Base.cs" />
+    <Compile Include="Extensions\EndianAware.cs" />
+    <Compile Include="Objects\ChargeRequestBody.cs" />
+    <Compile Include="Objects\ChargeResponseBody.cs" />
+    <Compile Include="Objects\CheckinResponseBody.cs" />
+    <Compile Include="Objects\IBase.cs" />
+    <Compile Include="Objects\PlateType.cs" />
+    <Compile Include="Objects\ShakeResponseBody.cs" />
+    <Compile Include="Objects\SessionStatus.cs" />
+    <Compile Include="Objects\TransactionStatus.cs" />
+    <Compile Include="Objects\Command.cs" />
+    <Compile Include="Objects\TransactionRequestBody.cs" />
+    <Compile Include="Objects\ConnectRequestBody.cs" />
+    <Compile Include="Objects\ConnectResponeBody.cs" />
+    <Compile Include="Objects\ISerializable.cs" />
+    <Compile Include="Objects\NullRequestBody.cs" />
+    <Compile Include="Objects\PlateStatus.cs" />
+    <Compile Include="Objects\TransactionResponseBody.cs" />
+    <Compile Include="Objects\ConnectStatus.cs" />
+    <Compile Include="Objects\StatusResponseBody.cs" />
+    <Compile Include="Objects\TicketType.cs" />
+    <Compile Include="Objects\VehicleType.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="WinSCP.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
