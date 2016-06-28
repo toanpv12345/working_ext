@@ -3,7 +3,7 @@
 #include <Windows.h>
 #include <ws2tcpip.h>
 #include <stdio.h> 
-#include "Message.h"
+#include "NetworkData.h"
 
 #define DEFAULT_BUFLEN 1024
 

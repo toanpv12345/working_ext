@@ -3,10 +3,8 @@
 #include <Windows.h>
 #include <string>
 #include <map>
-#include "Network.h"
+#include "Socket.h"
 #include "Message.h"
-#include "../Encrypt/aes.h"
-#include "../Encrypt/sha1.h"
 
 typedef void(__stdcall *TCOCCallback)(char*, int);
 
@@ -33,10 +31,7 @@ private:
 	void sendPacketWithEncrypt(char* packet, int packetSize);
 
 private:
-	aes_context m_aesContext;
-	AES* m_aes;
-
-	Network* m_network;
+	VETCSocket* m_network;
 	TCOCCallback _callBack;
 
 	std::string m_serverIP;

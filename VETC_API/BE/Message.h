@@ -72,8 +72,8 @@ struct Header {
 
 struct ConnectCmd {
 	Header header;
-	char UserName[20];
-	char PassWord[20];
+	char UserName[10];
+	char PassWord[10];
 	int Station;
 	int Timeout;
 
@@ -88,6 +88,10 @@ struct ConnectCmd {
 
 		memcpy(UserName, userName, strlen(userName));
 		memcpy(PassWord, pwd, strlen(pwd));
+	}
+
+	void serialize(char * data) {
+		memcpy(data, this, sizeof(ConnectCmd));
 	}
 };
 
