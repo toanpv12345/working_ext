@@ -1,0 +1,199 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RFID Tools</title>
+    <link rel="stylesheet" href="../../node_modules/material-design-lite/material.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="main.css">
+    <script src="../../node_modules/material-design-lite/material.min.js"></script>
+    <script src="main.js"></script>
+    <script src="inventory.js"></script>
+    <script src="readmemory.js"></script>
+  </head>
+
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <span class="mdl-layout-title">RFID Tools</span>
+        </div>
+      </header>
+      <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+        <div class="mdl-tabs__tab-bar">
+            <a href="#inventory-panel" class="mdl-tabs__tab">Inventory</a>
+            <a href="#read-memory-panel" class="mdl-tabs__tab is-active">Read Memory</a>
+            <!-- <a href="#write-memory-panel" class="mdl-tabs__tab">Write Memory</a>
+            <a href="#lock-memrory-panel" class="mdl-tabs__tab">Lock Memory</a> -->
+            <a href="#options-panel" class="mdl-tabs__tab">Options</a>
+        </div>
+        <div class="mdl-tabs__panel" id="inventory-panel">
+          <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--3-col">
+              <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="display-pc">
+                <input type="checkbox" id="display-pc" class="mdl-checkbox__input" checked>
+                <span class="mdl-checkbox__label">Display PC</span>
+              </label>
+
+              <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="continue-mode">
+                <input type="checkbox" id="continue-mode" class="mdl-checkbox__input" checked>
+                <span class="mdl-checkbox__label">Continue Mode</span>
+              </label>
+
+              <label class="mdl-checkbox report-rssi-label mdl-js-checkbox mdl-js-ripple-effect" for="report-rssi">
+                <input type="checkbox" id="report-rssi" class="mdl-checkbox__input">
+                <span class="mdl-checkbox__label">Report RSSI</span>
+              </label>
+
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="power-gain" value="260">
+                <label class="mdl-textfield__label" for="power-gain">Power gain (100 to 260)</label>
+              </div>
+
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="operation-time" value="0">
+                <label class="mdl-textfield__label" for="operation-time">Operation Time (ms)</label>
+              </div>
+
+              <div class="total-count"><i>Count:</i><span class="total-tags">0</span></div>
+
+              <button id="inventory-button" class="mdl-button block mdl-js-button mdl-button--raised mdl-button--colored" disabled>Inventory</button>
+              <button id="clear-button" class="mdl-button block mdl-js-button mdl-button--raised mdl-button--accent" disabled>Clear</button>
+              <button id="mask-button" class="mdl-button block mdl-js-button mdl-button--raised" disabled>Mask</button>
+            </div>
+            <div class="mdl-cell mdl-cell--9-col">
+              <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                <thead>
+                  <tr>
+                    <th class="mdl-data-table__cell--non-numeric"><strong>EPC</strong></th>
+                    <th><strong>Count</strong></th>
+                  </tr>
+                </thead>
+                <tbody id="epc-list">
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="mdl-tabs__panel is-active" id="read-memory-panel">
+          <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--3-col">
+              <dialog id="bank-dialog" class="mdl-dialog">
+                <h4 class="mdl-dialog__title">Bank</h4>
+                <div class="mdl-dialog__content">
+                  <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-reserved">
+                    <span class="mdl-radio__label">Reserved</span>
+                    <input type="radio" id="option-reserved" class="mdl-radio__button bank-option" name="bank-options" value="0">
+                  </label>
+                  <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-epc">
+                    <span class="mdl-radio__label">EPC</span>
+                    <input type="radio" id="option-epc" class="mdl-radio__button bank-option" name="bank-options" value="1" checked>
+                  </label>
+                  <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-tid">
+                    <span class="mdl-radio__label">TID</span>
+                    <input type="radio" id="option-tid" class="mdl-radio__button bank-option" name="bank-options" value="2">
+                  </label>
+                  <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-user">
+                    <span class="mdl-radio__label">User Memory</span>
+                    <input type="radio" id="option-user" class="mdl-radio__button bank-option" name="bank-options" value="3">
+                  </label>
+                </div>
+                <div class="mdl-dialog__actions">
+                  <button type="button" class="mdl-button close-bank-dialog">Cancel</button>
+                </div>
+              </dialog>
+
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="read-offset" value="2">
+                <label class="mdl-textfield__label" for="read-offset">Offset</label>
+              </div>
+
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="read-length" value="6">
+                <label class="mdl-textfield__label" for="read-length">Length</label>
+              </div>
+
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="read-password" value="">
+                <label class="mdl-textfield__label" for="read-password">Password</label>
+              </div>
+
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="read-power-gain" value="260">
+                <label class="mdl-textfield__label" for="read-power-gain">Power gain (100 to 260)</label>
+              </div>
+
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="read-operation-time" value="0">
+                <label class="mdl-textfield__label" for="read-operation-time">Operation Time (ms)</label>
+              </div>
+
+              <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect simple-display-label" for="read-simple-display">
+                <input type="checkbox" id="read-simple-display" class="mdl-checkbox__input">
+                <span class="mdl-checkbox__label">Simple display mode</span>
+              </label>
+
+              <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect simple-display-label" for="read-continue-mode">
+                <input type="checkbox" id="read-continue-mode" class="mdl-checkbox__input">
+                <span class="mdl-checkbox__label">Continue mode</span>
+              </label>
+
+              <button id="bank-button" class="mdl-button block mdl-js-button mdl-button--raised">Bank: EPC</button>
+              <button id="read-button" class="mdl-button block mdl-js-button mdl-button--raised mdl-button--colored">Read</button>
+              <button id="validate-button" class="mdl-button block mdl-js-button mdl-button--raised mdl-button--colored">Validate</button>
+              <button id="read-clear-button" class="mdl-button block mdl-js-button mdl-button--raised mdl-button--accent">Clear</button>
+              <button id="read-mask-button" class="mdl-button block mdl-js-button mdl-button--raised">Mask</button>
+            </div>
+            <div class="mdl-cell mdl-cell--9-col">
+              <div class="read-epc-result"></div>
+              <div class="read-result"></div>
+              <div class="read-memory-result"></div>
+              <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp memory-values">
+                <thead>
+                  <tr>
+                    <th class="mdl-data-table__cell--non-numeric">Block</th>
+                    <th><strong>Word 1</strong></th>
+                    <th><strong>Word 2</strong></th>
+                    <th><strong>Word 3</strong></th>
+                    <th><strong>Word 4</strong></th>
+                  </tr>
+                </thead>
+                <tbody id="read-memory-values"></tbody>
+              </table>
+
+              <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp validated-values">
+                <thead>
+                  <tr>
+                    <th class="mdl-data-table__cell--non-numeric">EPC</th>
+                    <th><strong>Status</strong></th>
+                    <th><strong>Block 1</strong></th>
+                    <th><strong>Block 2</strong></th>
+                  </tr>
+                </thead>
+                <tbody id="read-memory-validated-values"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="mdl-tabs__panel" id="write-memory--panel">
+
+        </div>
+        <div class="mdl-tabs__panel" id="lock-memrory-panel">
+
+        </div> -->
+        <div class="mdl-tabs__panel" id="options-panel">
+          <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--3-col">
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="listen-port" value="8888">
+                <label class="mdl-textfield__label" for="listen-port">Listen port</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

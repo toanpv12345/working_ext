@@ -1,0 +1,126 @@
+.validated-values {
+  margin-top:2em;
+  display: none;
+}
+
+.simple-display-label {
+  margin-bottom: 1em;
+}
+
+table.memory-values td, table.memory-values th, table.validated-values td, table.validated-values th {
+  text-align: center;
+}
+
+table.validated-values td.valid {
+  color:#00a651;
+}
+
+table.validated-values td.invalid {
+  color:#e53935;
+}
+
+td.aleft {
+  text-align: left!important;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+.read-epc-result, .read-result, .read-memory-result, .read-validate-result {
+  text-align: center;
+  background-color: #eee;
+  margin-bottom: 1em;
+  text-transform: uppercase;
+  min-height: 2em;
+  line-height: 2em;
+}
+
+.read-memory-result {
+  display: none;
+  color: #666;
+  padding:5px 0;
+}
+
+.read-epc-result {
+  color: #666;
+  padding:5px 0;
+}
+
+.read-result {
+  background-color: #efefef;
+  padding:5px 0;
+}
+
+.read-result.ok, .read-validate-result.ok {
+  background-color: #00a651;
+  color: #fff;
+  font-weight: bold;
+}
+
+.read-result.error, .read-validate-result.error {
+  background-color: #e53935;
+  color: #fff;
+  font-weight: bold;
+}
+
+#bank-dialog .mdl-radio {
+  display:block;
+  width:100%;
+  margin:8px 0;
+}
+
+#options-panel {
+  padding:2em;
+}
+
+.mdl-layout__header-row {
+  padding:0 40px;
+}
+
+.mdl-textfield, .mdl-checkbox {
+  display:block;
+  width:100%;
+}
+
+.report-rssi-label {
+  margin-bottom:10px;
+}
+
+.mdl-button.block {
+  width:100%;
+  display:block;
+  margin-bottom:7px;
+}
+
+.total-count {
+  font-size:18px;
+  margin-top:10px;
+}
+
+#inventory-button {
+  margin-top:15px;
+}
+
+.total-count i {
+  font-style:normal;
+}
+
+.total-count span {
+  font-weight: bold;
+  color:#00a651;
+  padding-left: 10px;
+  font-size: 24px;
+}
+
+.mdl-data-table {
+  width:100%;
+}
+
+td.valid {
+  color:#00a651;
+}
+
+td.invalid {
+  color:#ff0000;
+}
