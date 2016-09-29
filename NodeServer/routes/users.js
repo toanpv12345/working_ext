@@ -20,11 +20,11 @@ router.get('/login', function (req, res, next) {
 		return;
 	}
 
-	dbhelper.getOTPAccount(userName, function(data){
+	dbhelper.getOTPAccount(userName, key, function(data){
 		if(data != null){
 			console.log('AccountDB: ' + JSON.stringify(data));
-			if(data.PassWord == key && data.UserName == userName){
-				res.status(httpStatusCode.OK).send({"UserId":1,"UserName":"toanpv","OTPStatus":1});
+			if(data.UserName == userName){
+				res.status(httpStatusCode.OK).send({"UserId":data.UserId,"UserName":data.UserName,"OTPStatus":data.OTPStatus, "TimeServer": Date.now()});
 				return;
 			}
 		}
@@ -32,7 +32,6 @@ router.get('/login', function (req, res, next) {
 	});
 });
 
-//select * from [VETC.FE.Report].[dbo].[Account]
 router.get('/mssql', function(req, res){
 	console.log('mssql');
 	var sql = require("mssql");

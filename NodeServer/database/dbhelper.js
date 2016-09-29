@@ -6,7 +6,6 @@ var mongodb = require('mongodb');
 var mongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 
-var mongoUrl = 'mongodb://localhost:27017/MyMongoDB';
 var mongoCallback = null;
 
 var config = require('./config');
@@ -42,13 +41,13 @@ var connectDB = function(config, url, callback){
 	connectToMongoDB(url, function(err){callback(err);});
 };
 
-var getOTPAccount = function(userName, cb){
+var getOTPAccount = function(userName, passWord, cb){
 	mongoClient.connect(config.dbconfigs.MONGODB_URL, function(err, db) {
 		assert.equal(null, err);
-		console.log('Connected to mongo server.');
+		console.log('Connected to mongoDB.');
 		var collection = db.collection('OTPAccount');
 		// Find some documents
-		collection.find({UserName:{$eq:userName}}, {_id:0}).toArray(function (err, docs) {
+		collection.find({UserName:{$eq:userName}, PassWord:{$eq:passWord}}, {_id: 0, PassWord: 0}).toArray(function (err, docs) {
 			if(err) {
 				cb(null);
 				return;
