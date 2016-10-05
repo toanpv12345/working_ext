@@ -9,5 +9,10 @@ exports.dbconfigs = {
 		password: 'Vetc@123456',
 		server: 'localhost',
 		database: 'VETC.FE.Report'
+	},
+	ORACLEDB_CONFIG: {
+		user: "vetc",
+		password: "vetc129",
+		connectString: "192.168.70.55:1521/racdb"
 	}
 }
