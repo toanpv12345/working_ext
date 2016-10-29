@@ -1,0 +1,9 @@
+Connected to MSSQL
+[0mGET / [31m500 [0m6.548 ms - 1040[0m
+[0mGET / [31m500 [0m1.402 ms - 1040[0m
+[0mGET /api [36m304 [0m3.320 ms - -[0m
+[0mPOST /api [31m500 [0m1.265 ms - 1040[0m
+[0mPOST /api/post [32m200 [0m0.495 ms - 12[0m
+apis_login
+[0mPOST /api/login [33m400 [0m1.289 ms - 46[0m
+[0mGET /api [32m200 [0m0.720 ms - 12[0m

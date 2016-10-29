@@ -1,0 +1,33 @@
+Error: No default engine was specified and no extension was provided.
+    at new View (D:\working_ext\APIs\node_modules\express\lib\view.js:62:11)
+    at EventEmitter.render (D:\working_ext\APIs\node_modules\express\lib\application.js:569:12)
+    at ServerResponse.render (D:\working_ext\APIs\node_modules\express\lib\response.js:961:7)
+    at D:\working_ext\APIs\app.js:53:6
+    at Layer.handle_error (D:\working_ext\APIs\node_modules\express\lib\router\layer.js:71:5)
+    at trim_prefix (D:\working_ext\APIs\node_modules\express\lib\router\index.js:310:13)
+    at D:\working_ext\APIs\node_modules\express\lib\router\index.js:280:7
+    at Function.process_params (D:\working_ext\APIs\node_modules\express\lib\router\index.js:330:12)
+    at next (D:\working_ext\APIs\node_modules\express\lib\router\index.js:271:10)
+    at Layer.handle_error (D:\working_ext\APIs\node_modules\express\lib\router\layer.js:73:5)
+Error: No default engine was specified and no extension was provided.
+    at new View (D:\working_ext\APIs\node_modules\express\lib\view.js:62:11)
+    at EventEmitter.render (D:\working_ext\APIs\node_modules\express\lib\application.js:569:12)
+    at ServerResponse.render (D:\working_ext\APIs\node_modules\express\lib\response.js:961:7)
+    at D:\working_ext\APIs\app.js:53:6
+    at Layer.handle_error (D:\working_ext\APIs\node_modules\express\lib\router\layer.js:71:5)
+    at trim_prefix (D:\working_ext\APIs\node_modules\express\lib\router\index.js:310:13)
+    at D:\working_ext\APIs\node_modules\express\lib\router\index.js:280:7
+    at Function.process_params (D:\working_ext\APIs\node_modules\express\lib\router\index.js:330:12)
+    at next (D:\working_ext\APIs\node_modules\express\lib\router\index.js:271:10)
+    at Layer.handle_error (D:\working_ext\APIs\node_modules\express\lib\router\layer.js:73:5)
+Error: No default engine was specified and no extension was provided.
+    at new View (D:\working_ext\APIs\node_modules\express\lib\view.js:62:11)
+    at EventEmitter.render (D:\working_ext\APIs\node_modules\express\lib\application.js:569:12)
+    at ServerResponse.render (D:\working_ext\APIs\node_modules\express\lib\response.js:961:7)
+    at D:\working_ext\APIs\app.js:53:6
+    at Layer.handle_error (D:\working_ext\APIs\node_modules\express\lib\router\layer.js:71:5)
+    at trim_prefix (D:\working_ext\APIs\node_modules\express\lib\router\index.js:310:13)
+    at D:\working_ext\APIs\node_modules\express\lib\router\index.js:280:7
+    at Function.process_params (D:\working_ext\APIs\node_modules\express\lib\router\index.js:330:12)
+    at next (D:\working_ext\APIs\node_modules\express\lib\router\index.js:271:10)
+    at Layer.handle_error (D:\working_ext\APIs\node_modules\express\lib\router\layer.js:73:5)
